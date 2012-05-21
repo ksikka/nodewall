@@ -4,8 +4,9 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
-var mongoose = require('mongoose');
+   ,routes = require('./routes');
+   ,mongoose = require('mongoose');
+   ,io = require('socket.io');
 
 var app = module.exports = express.createServer();
 mongoose.connect('mongodb://localhost/test');
