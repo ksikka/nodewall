@@ -8,6 +8,7 @@ $('document').ready(function(){
             success: function(s) {                
                 if(!s) alert("Error, try again");
                 $('#wall').load("wall.html");
+                $('input[name="message"]').val("");
             }
         });
         return false;
