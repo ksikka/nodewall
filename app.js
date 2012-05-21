@@ -59,9 +59,7 @@ function storeMessage(req,res) {
 
 app.get('/', function(req,res) {
     console.log("GET request to root");
-    Post.find(
-            {},
-            function(err, docs) {
+    Post.find({}, function(err, docs) {
                 res.render('index',{
                     posts : docs,
                     title : "The NodeWall"
@@ -76,15 +74,9 @@ app.post('/post', storeMessage);
 
 /* This is for refreshing the wall on the client side */
 app.get('/wall.html',function(req,res){
-    Post.find(
-            {},
-            function(err, docs) {
-                res.partial('wall',{
-                    posts : docs,
-                    title : "The NodeWall"
-                });
-            }
-    );
+    Post.find({}, function(err, docs) {
+                res.partial('wall',{posts : docs });
+    });
 });
 
 app.listen(3000, function(){
