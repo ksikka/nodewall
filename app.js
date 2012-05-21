@@ -47,7 +47,7 @@ function storeMessage(req,res) {
             name:req.body.name,
             message:req.body.message}).save(function(){
                 res.send(true);
-                console.log("Saved a post: "+ Date.now.toString());
+                console.log("Saved a post: "+ Date.now().toString());
             });
     }
     else
@@ -74,6 +74,18 @@ app.get('/', function(req,res) {
  * This should be spam filtered eventually.*/
 app.post('/post', storeMessage);
 
+/* This is for refreshing the wall on the client side */
+app.get('/wall.html',function(req,res){
+    Post.find(
+            {},
+            function(err, docs) {
+                res.partial('wall',{
+                    posts : docs,
+                    title : "The NodeWall"
+                });
+            }
+    );
+});
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

@@ -1,0 +1,20 @@
+<% if (posts.length == 0) { %>
+Add a message to get started
+<% } %>
+
+<% if (posts.length > 0) { %>
+
+    <ol>
+    <% for (i = posts.length - 1; i >= 0 ; i--) { %>
+
+        <li>
+            <div><%= posts[i].name       %></div>
+            <div><%= posts[i].message    %></div>
+            <div><%= posts[i].created_on %></div>
+        </li>
+
+    <% } %>
+    </ol>
+
+<% } %>
+

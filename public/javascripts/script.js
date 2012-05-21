@@ -5,7 +5,10 @@ $('document').ready(function(){
             type: 'POST',
             url: '/post',
             data: $('form').serialize(),
-            success: function(s) { if(!s) alert("Error, try again"); }
+            success: function(s) {                
+                if(!s) alert("Error, try again");
+                $('#wall').load("wall.html");
+            }
         });
         return false;
 
