@@ -1,0 +1,21 @@
+<h1>Inspiration</h1>
+
+
+<form action="/" method="POST">
+    <input type="text" name="name" />
+    <input type="text" name="message" />
+    <button type="submit" style="visibility:hidden">Submit</button>
+</form>
+
+
+<ol>
+<% for (i = posts.length - 1; i >= 0 ; i--) { %>
+
+    <li>
+        <div><%= posts[i].name       %></div>
+        <div><%= posts[i].message    %></div>
+        <div><%= posts[i].created_on %></div>
+    </li>
+<% } %>
+</ol>
+
