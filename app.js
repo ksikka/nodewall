@@ -64,11 +64,14 @@ app.get('/', function(req,res) {
             function(err, docs) {
                 res.render('index',{
                     posts : docs,
-                    title : "Espresso"
+                    title : "The NodeWall"
                 });
             }
     );
 });
+
+/* This is the route for adding posts. 
+ * This should be spam filtered eventually.*/
 app.post('/post', storeMessage);
 
 
