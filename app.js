@@ -3,12 +3,13 @@
  * Module dependencies.
  */
 
-var express = require('express');
-   ,routes = require('./routes');
-   ,mongoose = require('mongoose');
+var express = require('express')
+   ,routes = require('./routes')
+   ,mongoose = require('mongoose')
    ,io = require('socket.io');
 
-var app = module.exports = express.createServer();
+var app = module.exports = express.createServer()
+   , io = io.listen(app);
 mongoose.connect('mongodb://localhost/test');
 
 // Configuration
