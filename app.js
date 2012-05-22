@@ -67,7 +67,7 @@ function storeMessage(req,res) {
 
 app.get('/', function(req,res) {
     console.log("GET request to root");
-    Post.find().sort('created_on',-1).exec(
+    Post.find().sort('created_on',1).exec(
             function(err,docs) {
                 res.render('index',{
                     posts : docs,
@@ -82,11 +82,20 @@ app.post('/post', storeMessage);
 
 /* This is for refreshing the wall on the client side */
 app.get('/wall.html',function(req,res){
-    Post.find({}, function(err, docs) {
-                res.partial('wall',{posts : docs });
+    Post.find().sort('created_on', 1).exec(
+            function(err, docs) {res.partial('wall',{posts : docs });
     });
 });
+
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
+  
+io.sockets.on('connection', function (socket) {
+  socket.on('message', function (data) {
+      console.log("someone posted a message, gonna broadcast now");
+      socket.broadcast.emit('refresh',true);
+  });
+});
+
