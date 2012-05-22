@@ -1,4 +1,4 @@
-  var socket = io.connect('http://ksikka-laptop');
+  var socket = io.connect('http://nodewall-ksikka.dotcloud.com');
   
 $('document').ready(function(){
     

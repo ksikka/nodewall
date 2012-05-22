@@ -10,7 +10,9 @@ var express = require('express')
 
 var app = module.exports = express.createServer()
    , io = io.listen(app);
-mongoose.connect('mongodb://localhost/test');
+
+var dbstring = 'mongodb://root:p7vMTNqe1vUlL5ty0HJp@nodewall-ksikka-db-0.dotcloud.com:28772'
+mongoose.connect(dbstring);
 
 // Configuration
 
@@ -87,7 +89,7 @@ app.get('/wall.html',function(req,res){
     });
 });
 
-var port = process.env.PORT || 3000;
+var port = 8080; // process.env.PORT || 3000; //heroku settings
 app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
