@@ -11,7 +11,7 @@ var express = require('express')
 var app = module.exports = express.createServer()
    , io = io.listen(app);
 
-var dbstring = 'mongodb://root:p7vMTNqe1vUlL5ty0HJp@nodewall-ksikka-db-0.dotcloud.com:28772'
+var dbstring = 'mongodb://root:p7vMTNqe1vUlL5ty0HJp@nodewall-ksikka-db-0.dotcloud.com:28772/admin';
 mongoose.connect(dbstring);
 
 // Configuration
@@ -85,7 +85,8 @@ app.post('/post', storeMessage);
 /* This is for refreshing the wall on the client side */
 app.get('/wall.html',function(req,res){
     Post.find().sort('created_on', 1).exec(
-            function(err, docs) {res.partial('wall',{posts : docs });
+            function(err, docs) {
+                res.partial('wall',{posts : docs });
     });
 });
 
