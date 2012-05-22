@@ -36,7 +36,12 @@ app.configure('production', function(){
 var Schema = mongoose.Schema;
 var postSchema = new Schema( {
     name      :{type:String, default:"Anonymous"},
-    message   :{type:String},
+    message   :{type:String, validate:[
+        function(s){
+            return Boolean(s)
+        },
+        'empty string'
+        ]},
     created_on:{type:Date, default:Date.now}
 });
 var Post = mongoose.model('postSchema',postSchema);
@@ -47,13 +52,16 @@ function storeMessage(req,res) {
     {
         new Post({
             name:req.body.name,
-            message:req.body.message}).save(function(){
-                res.send(true);
-                console.log("Saved a post: "+ Date.now().toString());
+            message:req.body.message}).save(function(err){
+                if(!err) {
+                    res.send(true);
+                    console.log("Saved a post: "+ Date.now().toString());
+                } else {
+                    res.send(false);
+                }
             });
     }
-    else
-        res.send(false);
+    else res.send(false);
 }
 
 
