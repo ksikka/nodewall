@@ -31,17 +31,15 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+// helpers
+var validatesPresenceOf = [function(s){ return Boolean(s) }, 'empty string' ];
+
 
 // model
 var Schema = mongoose.Schema;
 var postSchema = new Schema( {
     name      :{type:String, default:"Anonymous"},
-    message   :{type:String, validate:[
-        function(s){
-            return Boolean(s)
-        },
-        'empty string'
-        ]},
+    message   :{type:String, validate:validatesPresenceOf},
     created_on:{type:Date, default:Date.now}
 });
 var Post = mongoose.model('postSchema',postSchema);
