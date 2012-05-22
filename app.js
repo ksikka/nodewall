@@ -32,14 +32,14 @@ app.configure('production', function(){
 });
 
 // helpers
-var validatesPresenceOf = [function(s){ return Boolean(s) }, 'empty string' ];
+var validatesMaxLength = [function(s){ return s.length < 255; }, 'String too long' ];
 
 
 // model
 var Schema = mongoose.Schema;
 var postSchema = new Schema( {
-    name      :{type:String, default:"Anonymous"},
-    message   :{type:String, validate:validatesPresenceOf},
+    name      :{type:String, required:true },
+    message   :{type:String, required:true, validate:validatesMaxLength},
     created_on:{type:Date, default:Date.now}
 });
 var Post = mongoose.model('postSchema',postSchema);
@@ -67,11 +67,11 @@ function storeMessage(req,res) {
 
 app.get('/', function(req,res) {
     console.log("GET request to root");
-    Post.find({}, function(err, docs) {
+    Post.find().sort('created_on',-1).exec(
+            function(err,docs) {
                 res.render('index',{
                     posts : docs,
-                    title : "The NodeWall"
-                });
+                    title : "The NodeWall" });
             }
     );
 });
